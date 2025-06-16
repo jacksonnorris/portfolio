@@ -1,24 +1,17 @@
 .projectCard {
-    // Use a variable for the transition for easy editing
-    $transition-speed: 0.3s;
-  
-    // Set the default transition for the card
-    transition: transform $transition-speed ease, border-color $transition-speed ease;
-  
-    // On hover, we lift the card and change its border color
-    // We reference the primary color from our MUI theme via a CSS variable
+
+    transition: border-color 0.4s ease;
+    
+    max-width: 500px;
+
     &:hover {
-      transform: translateY(-8px);
-      // MUI exposes its theme colors as CSS variables, which is incredibly useful!
-      // var(--mui-palette-primary-main) will be the correct blue in both light and dark modes.
       border-color: var(--mui-palette-primary-main);
     }
   }
   
   .projectLinks {
-    // Add some space between the "Live Demo" and "GitHub" buttons
-    margin-top: auto; // This pushes the actions to the bottom of the card
-    padding-top: 16px; // Add some space above the buttons
+    margin-top: auto; 
+    padding-top: 16px; 
     display: flex;
-    gap: 8px; // The 'gap' property is a clean way to space flex items
+    gap: 8px; 
   }

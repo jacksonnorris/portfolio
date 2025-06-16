@@ -19,7 +19,7 @@
         "id": 2,
         "title": "Task Management App",
         "description": "An PWA e-commerce site utilizing Stripe for payment.",
-        "tags": ["React", "Vite", "Tailwind CSS", "Local Storage"],
+        "tags": ["Stripe", "React", "Express", "Apollo Client", "GraphQL", "Node JS", "Progressive Web Applications", "Tailwind CSS", "JWT Token", "UUID"],
         "repoUrl": "https://github.com/jacksonnorris/hobby-box"
       }
     ]
