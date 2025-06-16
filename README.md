@@ -4,6 +4,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Live Url
 
- [https://jacksonnorris.github.io/portfolio/](https://jacksonnorris.github.io/portfolio/)
+ [https://jacksonnorris.github.io/portfolio](https://jacksonnorris.github.io/portfolio)
 
 
