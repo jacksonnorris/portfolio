@@ -1,0 +1,28 @@
+{
+    "name": "Jack Norris",
+    "title": "Software Developer | Web Enthusiast | Lifelong Learner",
+    "about": "Hello! I'm a passionate developer with a love for creating clean, efficient, and beautiful web applications. I specialize in the MERN stack and enjoy tackling challenging problems.",
+    "contact": {
+      "email": "jacksonnorr@gmail.com",
+      "linkedin": "https://linkedin.com/in/jacksonnorris",
+      "github": "https://github.com/jacksonnorr"
+    },
+    "projects": [
+      {
+        "id": 1,
+        "title": "E-commerce Platform",
+        "description": "A full-featured e-commerce site built with React, Redux, and Firebase for the backend.",
+        "tags": ["React", "Redux", "Firebase", "CSS Modules"],
+        "liveUrl": "https://example.com",
+        "repoUrl": "https://github.com/jacksonnorr/project-one"
+      },
+      {
+        "id": 2,
+        "title": "Task Management App",
+        "description": "A sleek and intuitive task manager to help you stay organized. Built with Vite and Tailwind CSS.",
+        "tags": ["React", "Vite", "Tailwind CSS", "Local Storage"],
+        "liveUrl": "https://example.com",
+        "repoUrl": "https://github.com/jacksonnorr/project-two"
+      }
+    ]
+  }
