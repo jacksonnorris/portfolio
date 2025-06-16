@@ -1,4 +1,3 @@
-// src/components/Contact.js
 import React, { useState, useEffect } from 'react';
 import { useForm, ValidationError } from '@formspree/react';
 import { Box, Typography, TextField, Button, Snackbar, Alert } from '@mui/material';

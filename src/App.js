@@ -1,10 +1,11 @@
 import React from 'react';
+import { Routes, Route } from 'react-router-dom'; 
 
 import { CssBaseline, Container, Box } from '@mui/material';
 
 import Header from './components/Header';
-import Projects from './components/Projects';
-import ContactForm from './components/Contact';
+import HomePage from './components/HomePage';
+import Map from './components/Map';
 
 function App() {
   return (
@@ -13,10 +14,10 @@ function App() {
       <Box sx={{ bgcolor: 'background.default', color: 'text.primary', minHeight: '100vh' }}>
         <Container maxWidth="lg">
           <Header />
-          <main>
-            <Projects />
-            <ContactForm />
-          </main>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/map" element={<Map />} />
+          </Routes>
         </Container>
       </Box>
     </>

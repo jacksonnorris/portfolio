@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Box } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom'; // Use the router's Link
+import { AppBar, Toolbar, Typography, IconButton, Box, Button } from '@mui/material';
 import { ThemeContext } from '../contexts/ThemeContext';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
@@ -13,6 +14,11 @@ const Header = () => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
           Jack Norris | Portfolio
         </Typography>
+        <Box>
+          <Button color="inherit" component={RouterLink} to="/">Home</Button>
+          <Button color="inherit" component={RouterLink} to="/map">Map</Button>
+        </Box>
+
         <IconButton sx={{ ml: 1 }} onClick={toggleTheme} color="inherit" title="Toggle light/dark theme">
           {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
         </IconButton>

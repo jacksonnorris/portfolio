@@ -1,0 +1,32 @@
+{
+  "points": [
+    {
+      "id": "work-sf",
+      "type": "work",
+      "name": "San Francisco, CA",
+      "description": "Worked here as a Software Engineer from 2020-2022.",
+      "coordinates": [-122.4194, 37.7749]
+    },
+    {
+      "id": "travel-jp",
+      "type": "travel",
+      "name": "Tokyo, Japan",
+      "description": "Backpacked through Japan for 3 weeks in 2019.",
+      "coordinates": [139.6917, 35.6895]
+    },
+    {
+      "id": "travel-pe",
+      "type": "travel",
+      "name": "Cusco, Peru",
+      "description": "Hiked the Inca Trail to Machu Picchu.",
+      "coordinates": [-71.9675, -13.5320]
+    },
+    {
+      "id": "travel-it",
+      "type": "travel",
+      "name": "Rome, Italy",
+      "description": "Explored the ancient city and ate amazing pasta.",
+      "coordinates": [12.4964, 41.9028]
+    }
+  ]
+}
