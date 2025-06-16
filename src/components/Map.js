@@ -35,7 +35,7 @@ const Map = () => {
       style: mapStyle,
       projection: 'globe',
       center: [-74.0060, 40.7128],
-      zoom: 2,
+      zoom: 4,
     });
 
     map.current.on('style.load', () => {

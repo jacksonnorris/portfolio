@@ -5,10 +5,12 @@ import App from './App';
 import { CustomThemeProvider } from './contexts/ThemeContext';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
+const basename = process.env.PUBLIC_URL;
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <CustomThemeProvider>
         <App />
       </CustomThemeProvider>
