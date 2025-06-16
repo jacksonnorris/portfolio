@@ -1,19 +1,42 @@
 import React from 'react';
 import portfolioData from './data/portfolioData.json';
+
 import Projects from './components/Projects';
-import './App.css';
+import ContactForm from './components/Contact';
+
+import { CssBaseline, Container, Box, Typography, Link } from '@mui/material';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>{portfolioData.name}</h1>
-        <p>{portfolioData.title}</p>
-      </header>
-      <main>
-        <Projects />
-      </main>
-    </div>
+    <>
+      <CssBaseline />
+      <Container maxWidth="lg">
+        {/* HEADER */}
+        <Box component="header" sx={{ my: 4, textAlign: 'center' }}>
+          <Typography variant="h1" component="h1">
+            {portfolioData.name}
+          </Typography>
+          <Typography variant="h5" component="p" color="text.secondary">
+            {portfolioData.title}
+          </Typography>
+        </Box>
+
+        {/* MAIN CONTENT */}
+        <main>
+          <Projects />
+          <ContactForm />
+        </main>
+
+        {/* FOOTER */}
+        <Box component="footer" sx={{ my: 4, textAlign: 'center' }}>
+          <Typography variant="body2" color="text.secondary">
+            Connect with me: {' '}
+            <Link href={portfolioData.contact.linkedin} target="_blank" rel="noopener">LinkedIn</Link> | {' '}
+            <Link href={portfolioData.contact.github} target="_blank" rel="noopener">GitHub</Link>
+          </Typography>
+        </Box>
+      </Container>
+    </>
   );
 }
 

@@ -11,18 +11,16 @@
       {
         "id": 1,
         "title": "E-commerce Platform",
-        "description": "A full-featured e-commerce site built with React, Redux, and Firebase for the backend.",
-        "tags": ["React", "Redux", "Firebase", "CSS Modules"],
-        "liveUrl": "https://example.com",
-        "repoUrl": "https://github.com/jacksonnorr/project-one"
+        "description": "A MERN application that pulls in live cyrptocurrency pricing and other data. The app allows a user to login so they can like and save their favorite coins to keep track of them.",
+        "tags": ["MongoDB", "Express", "React", "Node JS", "Axios", "Concurrently", "Mongoose"],
+        "repoUrl": "https://github.com/jacksonnorris/ern"
       },
       {
         "id": 2,
         "title": "Task Management App",
-        "description": "A sleek and intuitive task manager to help you stay organized. Built with Vite and Tailwind CSS.",
+        "description": "An PWA e-commerce site utilizing Stripe for payment.",
         "tags": ["React", "Vite", "Tailwind CSS", "Local Storage"],
-        "liveUrl": "https://example.com",
-        "repoUrl": "https://github.com/jacksonnorr/project-two"
+        "repoUrl": "https://github.com/jacksonnorris/hobby-box"
       }
     ]
   }
