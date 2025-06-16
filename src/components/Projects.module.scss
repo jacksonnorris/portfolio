@@ -1,17 +1,10 @@
 .projectCard {
+  max-width: 500px;
+}
 
-    transition: border-color 0.4s ease;
-    
-    max-width: 500px;
-
-    &:hover {
-      border-color: var(--mui-palette-primary-main);
-    }
-  }
-  
-  .projectLinks {
-    margin-top: auto; 
-    padding-top: 16px; 
-    display: flex;
-    gap: 8px; 
-  }
+.projectLinks {
+  margin-top: auto; 
+  padding-top: 16px; 
+  display: flex;
+  gap: 8px; 
+}

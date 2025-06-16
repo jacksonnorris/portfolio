@@ -13,6 +13,7 @@ const commonSettings = {
         root: {
           borderRadius: 12,
           boxShadow: 'none',
+          border: 'none',
         },
       },
     },
@@ -39,7 +40,10 @@ export const lightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#0052cc',
+      main: '#007BFF',
+    },
+    secondary: {
+      main: '#F50057',
     },
     background: {
       default: '#f4f6f8',
@@ -47,7 +51,11 @@ export const lightTheme = createTheme({
     },
     text: {
       primary: '#172b4d',
+      secondary: '#5e6c84',
     },
+    action: {
+      hover: 'rgba(0, 0, 0, 0.04)',
+    }
   },
 });
 
@@ -56,7 +64,10 @@ export const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#82aaff', 
+      main: '#00D5FF',
+    },
+    secondary: {
+      main: '#FF00A0',
     },
     background: {
       default: '#161c24',
@@ -66,17 +77,9 @@ export const darkTheme = createTheme({
       primary: '#e3e3e3',
       secondary: '#a9a9a9',
     },
-  },
-
-  components: {
-    ...commonSettings.components,
-    MuiCard: {
-      styleOverrides: {
-        root: {
-          ...commonSettings.components.MuiCard.styleOverrides.root,
-          border: '1px solid #3d4753',
-        },
-      },
-    },
+    divider: 'rgba(145, 158, 171, 0.24)',
+    action: {
+      hover: 'rgba(255, 255, 255, 0.08)',
+    }
   },
 });

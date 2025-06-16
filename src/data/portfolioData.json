@@ -18,7 +18,7 @@
       {
         "id": 2,
         "title": "Hobby Box",
-        "description": "An PWA e-commerce site utilizing Stripe for payment.",
+        "description": "A PWA e-commerce site utilizing Stripe for payment.",
         "tags": ["Stripe", "React", "Express", "Apollo Client", "GraphQL", "Node JS", "PWA", "Tailwind CSS", "JWT", "UUID"],
         "repoUrl": "https://github.com/jacksonnorris/hobby-box"
       }

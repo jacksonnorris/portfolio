@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link as RouterLink } from 'react-router-dom'; // Use the router's Link
+import { Link as RouterLink } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, IconButton, Box, Button } from '@mui/material';
 import { ThemeContext } from '../contexts/ThemeContext';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
