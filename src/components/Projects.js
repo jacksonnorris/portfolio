@@ -1,12 +1,11 @@
 import React from 'react';
 import portfolioData from '../data/portfolioData.json';
+import styles from './Projects.module.scss';
 
-// MUI Imports for styling and components
 import { Box, Typography, Grid, Card, CardContent, CardActions, Button, Chip, Link } from '@mui/material';
-import GitHubIcon from '@mui/icons-material/GitHub';
 import LaunchIcon from '@mui/icons-material/Launch';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
-// Framer Motion and Intersection Observer for animations
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
@@ -37,67 +36,53 @@ const MotionGridItem = ({ children, index }) => {
 
 
 const Projects = () => {
-  return (
-    <Box component="section" id="projects" sx={{ py: 8, px: 2, backgroundColor: '#f7f9fc' }}>
-      <Typography variant="h2" component="h2" align="center" gutterBottom>
-        My Projects
-      </Typography>
-      <Grid container spacing={4} justifyContent="center" alignItems="stretch">
-        {portfolioData.projects.map((project, index) => (
-          <Grid item key={project.id} xs={12} sm={6} md={4}>
-            <MotionGridItem index={index}>
-              <Card sx={{ 
-                height: '100%', 
-                display: 'flex', 
-                flexDirection: 'column',
-                transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
-                '&:hover': {
-                  transform: 'translateY(-8px)',
-                  boxShadow: 8,
-                }
-              }}>
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography gutterBottom variant="h5" component="h3">
-                    {project.title}
-                  </Typography>
-                  <Typography sx={{ mb: 2 }}>
-                    {project.description}
-                  </Typography>
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
-                    {project.tags.map((tag, index) => (
-                      <Chip key={index} label={tag} variant="outlined" color="primary" sx={{ mr: 1, mb: 1 }} />
-                    ))}
-                  </Box>
-                </CardContent>
-                <CardActions>
-                  {/* <Button 
-                    component={Link} 
-                    href={project.liveUrl} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    size="small" 
-                    startIcon={<LaunchIcon />}
-                  >
-                    Live Demo
-                  </Button> */}
-                  <Button 
-                    component={Link} 
-                    href={project.repoUrl} 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    size="small" 
-                    startIcon={<GitHubIcon />}
-                  >
-                    GitHub
-                  </Button>
-                </CardActions>
-              </Card>
-            </MotionGridItem>
-          </Grid>
-        ))}
-      </Grid>
-    </Box>
-  );
-};
-
-export default Projects;
+    return (
+      <Box component="section" id="projects" sx={{ py: 8 }}>
+        <Typography variant="h2" component="h2" align="center" sx={{ mb: 6 }}>
+          Featured Projects
+        </Typography>
+        <Grid container spacing={4} justifyContent="center">
+          {portfolioData.projects.map((project, index) => (
+            <Grid item key={project.id} xs={12} md={6} lg={4}>
+              <MotionGridItem index={index}>
+                <Card className={styles.projectCard} sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h3">
+                      {project.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                      {project.description}
+                    </Typography>
+                    <Box>
+                      {project.tags.map((tag) => (
+                        <Chip key={tag} label={tag} size="small" sx={{ mr: 1, mb: 1 }} />
+                      ))}
+                    </Box>
+                  </CardContent>
+                  <CardActions className={styles.projectLinks}>
+                    {/* <Button 
+                      variant="outlined" 
+                      href={project.liveUrl} 
+                      target="_blank" 
+                      startIcon={<LaunchIcon />}
+                    >
+                      Live Demo
+                    </Button> */}
+                    <Button 
+                      href={project.repoUrl} 
+                      target="_blank" 
+                      startIcon={<GitHubIcon />}
+                    >
+                      GitHub
+                    </Button>
+                  </CardActions>
+                </Card>
+              </MotionGridItem>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    );
+  };
+  
+  export default Projects;
