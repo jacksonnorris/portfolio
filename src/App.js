@@ -1,11 +1,12 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom'; 
+import { Routes, Route } from 'react-router-dom';
 
 import { CssBaseline, Container, Box } from '@mui/material';
 
 import Header from './components/Header';
 import HomePage from './components/HomePage';
 import Map from './components/Map';
+import ControlPanel from './components/ControlPanel';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           </Routes>
         </Container>
       </Box>
+      <ControlPanel />
     </>
   );
 }

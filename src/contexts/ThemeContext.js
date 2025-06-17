@@ -1,36 +1,47 @@
 import React, { createContext, useState, useMemo, useEffect } from 'react';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
-import { lightTheme, darkTheme } from '../theme';
+import { createCustomTheme } from '../components/Theme';
 
 export const ThemeContext = createContext({
   toggleTheme: () => {},
+  setTextSize: (size) => {},
+  mode: 'dark',
+  textSize: 'medium',
 });
 
 export const CustomThemeProvider = ({ children }) => {
-  const [mode, setMode] = useState('dark'); // Default to dark mode
+  const [mode, setMode] = useState('dark');
+  const [textSize, setTextSize] = useState('medium');
 
-  // Load the saved theme from localStorage when the component mounts
+  // Load saved settings from localStorage on initial mount
   useEffect(() => {
     const savedMode = localStorage.getItem('themeMode');
-    if (savedMode) {
-      setMode(savedMode);
-    }
+    if (savedMode) setMode(savedMode);
+    const savedTextSize = localStorage.getItem('textSize');
+    if (savedTextSize) setTextSize(savedTextSize);
   }, []);
 
   // Function to toggle the theme
   const toggleTheme = () => {
     const newMode = mode === 'light' ? 'dark' : 'light';
     setMode(newMode);
-    // Save the new mode to localStorage
     localStorage.setItem('themeMode', newMode);
   };
 
-  // Select the theme object based on the current mode
-  // useMemo ensures the theme is only recreated when the mode changes
-  const theme = useMemo(() => (mode === 'light' ? lightTheme : darkTheme), [mode]);
+  // Function to handle text size changes
+  const handleSetTextSize = (size) => {
+    setTextSize(size);
+    localStorage.setItem('textSize', size);
+  };
+
+  // The theme is  dynamically created based on mode and textSize
+  const theme = useMemo(
+    () => createCustomTheme(mode, textSize),
+    [mode, textSize]
+  );
 
   return (
-    <ThemeContext.Provider value={{ toggleTheme, mode }}>
+    <ThemeContext.Provider value={{ toggleTheme, mode, setTextSize: handleSetTextSize, textSize }}>
       <MuiThemeProvider theme={theme}>
         {children}
       </MuiThemeProvider>
