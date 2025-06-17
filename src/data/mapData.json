@@ -1,32 +1,60 @@
 {
   "points": [
     {
-      "id": "work-sf",
+      "id": "work-clt",
       "type": "work",
-      "name": "San Francisco, CA",
-      "description": "Worked here as a Software Engineer from 2020-2022.",
-      "coordinates": [-122.4194, 37.7749]
+      "name": "Charlotte, NC",
+      "description": "Charlotte, NC is where I was born, raised, and currently reside.",
+      "coordinates": [-80.8392, 35.2252]
     },
     {
-      "id": "travel-jp",
+      "id": "travel-abasin",
       "type": "travel",
-      "name": "Tokyo, Japan",
-      "description": "Backpacked through Japan for 3 weeks in 2019.",
-      "coordinates": [139.6917, 35.6895]
+      "name": "Arapahoe Basin, CO",
+      "description": "Skiing is my favorite hobby, and A-basin is my favorite mountain to ski!",
+      "coordinates": [-105.8715, 39.6341]
     },
     {
-      "id": "travel-pe",
+      "id": "travel-man",
       "type": "travel",
-      "name": "Cusco, Peru",
-      "description": "Hiked the Inca Trail to Machu Picchu.",
-      "coordinates": [-71.9675, -13.5320]
+      "name": "Managua, Nicaragua",
+      "description": "Here's where I climbed my first (and only) volcano!",
+      "coordinates": [-86.1608, 11.9853]
     },
     {
-      "id": "travel-it",
+      "id": "work-sha",
+      "type": "work",
+      "name": "Shanghai, China",
+      "description": "I did a study abroad internship working for a blockchain company over the summer here.",
+      "coordinates": [121.6985, 31.1162]
+    },
+    {
+      "id": "travel-bei",
       "type": "travel",
-      "name": "Rome, Italy",
-      "description": "Explored the ancient city and ate amazing pasta.",
-      "coordinates": [12.4964, 41.9028]
+      "name": "Beijing, China",
+      "description": "The Great Wall of China is the only one of the seven wonders of the world I have visited (so far).",
+      "coordinates": [116.5706, 40.4326]
+    },
+    {
+      "id": "travel-pva",
+      "type": "travel",
+      "name": "Puerta Vallarta, Mexico",
+      "description": "I won a free, all expenses paid trip here by selling over $10k worth of knives in 10 days.",
+      "coordinates": [-105.2397, 20.6415]
+    },
+    {
+      "id": "travel-nyc",
+      "type": "travel",
+      "name": "Ney York City, NY",
+      "description": "I saw my first broadway play, Hadestown, here.",
+      "coordinates": [-73.9830, 40.7631]
+    },
+    {
+      "id": "travel-vir",
+      "type": "travel",
+      "name": "Danville, VA",
+      "description": "VIR is a world-renowned racetrack and my favorite place in the world to go to.",
+      "coordinates": [-79.2091, 36.5679]
     }
   ]
 }
