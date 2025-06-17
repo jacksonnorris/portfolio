@@ -14,13 +14,10 @@ import {
   useMediaQuery 
 } from '@mui/material';
 
-// Icons
-import MenuIcon from '@mui/icons-material/Menu'; // Hamburger Icon
+import MenuIcon from '@mui/icons-material/Menu';
 
 const Header = () => {
-  // --- RESPONSIVE LOGIC ---
   const theme = useTheme();
-  // `isMobile` will be `true` if the screen width is less than the 'md' breakpoint (900px by default)
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -40,15 +37,27 @@ const Header = () => {
     handleMenuClose();
   };
   
-  // --- DESKTOP MENU ---
   const menuDesktop = (
     <Box>
-      <Button color="inherit" component={RouterLink} to="/">Home</Button>
-      <Button color="inherit" component={RouterLink} to="/map">Map</Button>
+      <Button 
+        color="inherit" 
+        component={RouterLink} 
+        to="/"
+        sx={{ fontSize: '1.25rem', fontWeight: 'bold', px: 2 }}
+      >
+        Home
+      </Button>
+      <Button 
+        color="inherit" 
+        component={RouterLink} 
+        to="/map"
+        sx={{ fontSize: '1.25rem', fontWeight: 'bold', px: 2 }}
+      >
+        Map
+      </Button>
     </Box>
   );
 
-  // --- MOBILE MENU ---
   const menuMobile = (
     <Box>
       <IconButton
@@ -58,21 +67,16 @@ const Header = () => {
         aria-label="open navigation menu"
         onClick={handleMenuOpen}
       >
-        <MenuIcon />
+        <MenuIcon sx={{ fontSize: '2rem' }} /> 
       </IconButton>
       <Menu
         anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         keepMounted
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         open={isMenuOpen}
         onClose={handleMenuClose}
+        sx={{ '& .MuiMenuItem-root': { fontSize: '1.1rem' } }}
       >
         <MenuItem onClick={() => handleMenuItemClick('/')}>Home</MenuItem>
         <MenuItem onClick={() => handleMenuItemClick('/map')}>Map</MenuItem>
@@ -82,9 +86,9 @@ const Header = () => {
 
   return (
     <AppBar position="static" color="transparent" elevation={0} sx={{ borderBottom: 1, borderColor: 'divider' }}>
-      <Toolbar>
+      <Toolbar sx={{ height: '80px' }}> 
         <Typography 
-          variant="h6" 
+          variant="h5" 
           component={RouterLink} 
           to="/" 
           sx={{ 
@@ -94,10 +98,9 @@ const Header = () => {
             color: 'text.primary',
           }}
         >
-          Jack Norris | Portfolio
+          Jack Norris
         </Typography>
 
-        {/* If it's a mobile screen, show the hamburger menu. Otherwise, show the desktop menu. */}
         {isMobile ? menuMobile : menuDesktop}
 
       </Toolbar>
