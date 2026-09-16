@@ -1,26 +1,76 @@
 {
     "name": "Jack Norris",
-    "title": "Software Developer | Web Enthusiast | Lifelong Learner",
-    "about": "Hello! I'm a passionate developer with a love for creating clean, efficient, and beautiful web applications. I specialize in the MERN stack and enjoy tackling challenging problems.",
+    "title": "I build the systems a business runs on: how its customers order, how its team works, how the numbers stay right. Built well, nobody has to think about them.",
+    "about": [
+      "That means a React Native app on the App Store and Google Play, a SuiteCommerce storefront, and the NetSuite backend behind both. They share state rather than sync it, so a cart, a price, an order history, and a notification mean the same thing in every channel at once.",
+      "Trust is the hard part, and in B2B it starts with price. Every customer has their own negotiated rate, so a product doesn't have one price the way a retail item does. It has one per relationship, and that number has to agree across the app, the web store, the cart, and the invoice every time. The rest of my engineering goes into guarantees of the same kind: that a charge happens exactly once, that a session survives whatever the network does.",
+      "Just as much of my work is internal. I automate what a business actually runs on: warehouse and inventory flows, freight quoting, payments and credit, and the alerts that surface a problem before anyone goes looking for it. Jobs that used to be done by hand now finish in under a minute, which frees people for the work that actually needs a person."
+    ],
     "contact": {
       "email": "jacksonnorr@gmail.com",
-      "linkedin": "https://linkedin.com/in/jacksonnorris",
-      "github": "https://github.com/jacksonnorr"
+      "linkedin": "https://www.linkedin.com/in/jackson-norris/",
+      "github": "https://github.com/jacksonnorris"
     },
     "projects": [
       {
+        "id": 10,
+        "category": "professional",
+        "title": "Bisque Imports",
+        "subtitle": "B2B mobile storefront · iOS & Android",
+        "description": "A wholesale ordering app: catalog, cart, checkout with saved cards, order tracking, and damage claims filed with photos taken in-app. Built to stay usable on carts running into the hundreds of lines, with text that scales for whoever's reading.",
+        "tags": ["React Native", "Expo", "TypeScript", "iOS", "Android"],
+        "links": [
+          { "url": "https://apps.apple.com/us/app/bisque-imports/id6756626630", "label": "App Store", "icon": "apple" },
+          { "url": "https://play.google.com/store/apps/details?id=com.bisqueimports.app&hl=en_US", "label": "Google Play", "icon": "android" }
+        ]
+      },
+      {
+        "id": 11,
+        "category": "professional",
+        "title": "Backend & Internal Systems",
+        "subtitle": "The server, and the automation behind it",
+        "description": "The API both storefronts call, plus the systems the business runs on: inventory reconciliation, freight quoting, payments and credit, scheduled reporting and alerts. TypeScript throughout, with deploy tooling that makes what's live a fact rather than a guess.",
+        "tags": ["NetSuite", "SuiteScript", "TypeScript", "Automation", "Node JS"]
+      },
+      {
+        "id": 12,
+        "category": "professional",
+        "title": "bisqueimports.com",
+        "subtitle": "Storefront customizations",
+        "description": "Product pages, reorder flows, damage claims, and shipping options across the live storefront. New work ships behind a server-side allowlist, out in production but unreachable until it's ready.",
+        "tags": ["SuiteCommerce", "JavaScript", "NetSuite"],
+        "links": [
+          { "url": "https://www.bisqueimports.com/", "label": "Visit Site", "icon": "web" }
+        ]
+      },
+      {
+        "id": 13,
+        "category": "professional",
+        "status": "In progress",
+        "title": "bisque-commerce",
+        "subtitle": "A rebuild, not a migration",
+        "description": "A typed React front end replacing Backbone-era SuiteCommerce, one shared contract the app and web store both compile against, and CI that type-checks, tests, and dry-runs every deploy — none of which NetSuite gives you natively.",
+        "tags": ["React", "Vite", "TypeScript", "CI/CD", "NetSuite"]
+      },
+      {
         "id": 1,
+        "category": "earlier",
         "title": "Ern",
-        "description": "A MERN application that pulls in live cyrptocurrency pricing and other data. The app allows a user to login so they can like and save their favorite coins to keep track of them.",
-        "tags": ["MongoDB", "Express", "React", "Node JS", "Axios", "Concurrently", "Mongoose"],
-        "repoUrl": "https://github.com/jacksonnorris/ern"
+        "description": "A crypto price tracker with accounts, so users can save and follow their favorite coins.",
+        "tags": ["React", "Node JS", "MongoDB", "Express"],
+        "links": [
+          { "url": "https://github.com/jacksonnorris/ern", "label": "GitHub", "icon": "github" }
+        ]
       },
       {
         "id": 2,
+        "category": "earlier",
         "title": "Hobby Box",
         "description": "A PWA e-commerce site utilizing Stripe for payment.",
-        "tags": ["Stripe", "React", "Express", "Apollo Client", "GraphQL", "Node JS", "PWA", "Tailwind CSS", "JWT", "UUID"],
-        "repoUrl": "https://github.com/jacksonnorris/hobby-box"
+        "tags": ["React", "Node JS", "GraphQL", "Stripe"],
+        "links": [
+          { "url": "https://github.com/jacksonnorris/hobby-box", "label": "GitHub", "icon": "github" }
+        ]
       }
     ]
   }
