@@ -17,8 +17,10 @@ const fontSizes: Record<TextSize, FontSizeSet> = {
   large: { h1: '4.5rem', h2: '3.5rem', h3: '2.5rem', body1: '1.125rem', body2: '1rem' },
 };
 
-const BODY_FONT = '"Inter", "Roboto", "Helvetica", "Arial", sans-serif';
-const HEADING_FONT = '"Space Grotesk", "Inter", "Roboto", sans-serif';
+// The two-font system: an expressive modern display face for the big moments
+// (wordmark, section headings) and a clean grotesque for everything else.
+const BODY_FONT = '"Instrument Sans", "Helvetica", "Arial", sans-serif';
+const DISPLAY_FONT = '"Syne", "Instrument Sans", sans-serif';
 
 // This function creates the theme on the fly
 export const createCustomTheme = (mode: ThemeMode, textSize: TextSize): Theme => {
@@ -57,13 +59,12 @@ export const createCustomTheme = (mode: ThemeMode, textSize: TextSize): Theme =>
   // merge in the dynamic typography and common component styles
   return createTheme(theme, {
     typography: {
-      fontFamily: BODY_FONT,
-      h1: { fontWeight: 700, fontSize: selectedSizes.h1, fontFamily: HEADING_FONT, letterSpacing: '-0.02em' },
-      h2: { fontWeight: 700, fontSize: selectedSizes.h2, fontFamily: HEADING_FONT, letterSpacing: '-0.02em' },
-      h3: { fontWeight: 600, fontSize: selectedSizes.h3, fontFamily: HEADING_FONT, letterSpacing: '-0.01em' },
-      h4: { fontWeight: 600, fontFamily: HEADING_FONT, letterSpacing: '-0.01em' },
-      h5: { fontWeight: 600, fontFamily: HEADING_FONT },
-      h6: { fontWeight: 500, fontFamily: HEADING_FONT },
+      h1: { fontFamily: DISPLAY_FONT, fontWeight: 800, fontSize: selectedSizes.h1 },
+      h2: { fontFamily: DISPLAY_FONT, fontWeight: 800, fontSize: selectedSizes.h2 },
+      h3: { fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: selectedSizes.h3 },
+      h4: { fontFamily: DISPLAY_FONT, fontWeight: 700 },
+      h5: { fontWeight: 600 },
+      h6: { fontWeight: 500 },
       button: { fontWeight: 600 },
       body1: { fontSize: selectedSizes.body1 },
       body2: { fontSize: selectedSizes.body2 },
@@ -72,7 +73,7 @@ export const createCustomTheme = (mode: ThemeMode, textSize: TextSize): Theme =>
       MuiCard: {
         styleOverrides: {
           root: {
-            borderRadius: 12,
+            borderRadius: 16,
             boxShadow: 'none',
             border: `1px solid ${theme.palette.divider}`,
             backgroundImage: 'none',
@@ -81,13 +82,29 @@ export const createCustomTheme = (mode: ThemeMode, textSize: TextSize): Theme =>
       },
       MuiButton: {
         styleOverrides: {
-          root: { borderRadius: 8, textTransform: 'none' },
+          // lineHeight 1.2 removes the tall line box that made labels sit
+          // high; zeroing startIcon's default -4px margin removes the left
+          // lean. Together they keep icon + label optically centered.
+          root: { borderRadius: 999, textTransform: 'none', lineHeight: 1.2 },
+          startIcon: { marginLeft: 0 },
+          // Padding is 1px heavier on top: most labels have no descenders,
+          // so the reserved space under the baseline reads as bottom padding
+          // and the label looks high in the pill without this.
+          sizeMedium: { padding: '11px 20px 9px' },
+          sizeSmall: { padding: '8px 14px 6px' },
+          outlined: { borderWidth: '1.5px', '&:hover': { borderWidth: '1.5px' } },
           outlinedSecondary: ({ theme: t }: { theme: Theme }) => ({
             '--mui-palette-secondary-main-rgb': t.palette.secondary.main.match(/\d+/g)?.join(',') ?? '',
           }),
         },
       },
-      MuiChip: { styleOverrides: { root: { borderRadius: 8 } } },
+      MuiChip: {
+        styleOverrides: {
+          root: { borderRadius: 999 },
+          // Same optical correction as the buttons, as a pure visual nudge.
+          label: { transform: 'translateY(1px)' },
+        },
+      },
     },
   });
 };

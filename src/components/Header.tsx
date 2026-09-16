@@ -4,6 +4,7 @@ import { alpha } from '@mui/material/styles';
 
 import {
   AppBar,
+  Container,
   Toolbar,
   Typography,
   Box,
@@ -53,8 +54,8 @@ const Header = () => {
           component={RouterLink}
           to={to}
           sx={{
-            fontSize: '1.25rem',
-            fontWeight: 'bold',
+            fontSize: '1.05rem',
+            fontWeight: 600,
             px: 2,
             color: pathname === to ? 'primary.main' : 'inherit',
           }}
@@ -106,24 +107,28 @@ const Header = () => {
         backdropFilter: 'blur(12px)',
       })}
     >
-      <Toolbar sx={{ height: '80px' }}>
-        <Typography
-          variant="h5"
-          component={RouterLink}
-          to="/"
-          sx={{
-            flexGrow: 1,
-            fontWeight: 'bold',
-            textDecoration: 'none',
-            color: 'text.primary',
-          }}
-        >
-          Jack Norris
-        </Typography>
+      <Container maxWidth="lg">
+        <Toolbar disableGutters sx={{ height: '80px' }}>
+          <Typography
+            component={RouterLink}
+            to="/"
+            sx={{
+              flexGrow: 1,
+              // Same face and cut as the hero name, just smaller.
+              fontFamily: '"Syne", sans-serif',
+              fontWeight: 800,
+              fontSize: '1.5rem',
+              textDecoration: 'none',
+              color: 'text.primary',
+            }}
+          >
+            Jack Norris
+          </Typography>
 
-        {isMobile ? menuMobile : menuDesktop}
+          {isMobile ? menuMobile : menuDesktop}
 
-      </Toolbar>
+        </Toolbar>
+      </Container>
     </AppBar>
   );
 };

@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react';
-import { alpha } from '@mui/material/styles';
 import { portfolioData } from '../data/portfolio';
 
 import { Box, Typography, Button, Stack } from '@mui/material';
@@ -26,6 +25,7 @@ interface ContactLink {
   label: string;
   href: string;
   icon: ReactElement;
+  primary?: boolean;
 }
 
 const Hero = () => {
@@ -33,7 +33,7 @@ const Hero = () => {
   const paragraphs = Array.isArray(about) ? about : [about];
 
   const links: ContactLink[] = [
-    { label: 'Email', href: `mailto:${contact.email}`, icon: <EmailIcon /> },
+    { label: 'Email', href: `mailto:${contact.email}`, icon: <EmailIcon />, primary: true },
     { label: 'LinkedIn', href: contact.linkedin, icon: <LinkedInIcon /> },
     { label: 'GitHub', href: contact.github, icon: <GitHubIcon /> },
   ];
@@ -45,41 +45,18 @@ const Hero = () => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      sx={(theme) => ({
-        py: { xs: 8, md: 12 },
-        textAlign: 'center',
-        position: 'relative',
-        zIndex: 0,
-        // Soft color glow behind the intro, in the palette's own colors.
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          inset: 0,
-          zIndex: -1,
-          pointerEvents: 'none',
-          background: `radial-gradient(600px circle at 15% 20%, ${alpha(
-            theme.palette.primary.main,
-            theme.palette.mode === 'dark' ? 0.14 : 0.1
-          )}, transparent 65%), radial-gradient(560px circle at 85% 25%, ${alpha(
-            theme.palette.secondary.main,
-            theme.palette.mode === 'dark' ? 0.11 : 0.08
-          )}, transparent 65%)`,
-        },
-      })}
+      sx={{ py: { xs: 8, md: 12 }, textAlign: 'center' }}
     >
       <Typography
         component={motion.h1}
         variants={itemVariants}
         variant="h2"
         sx={(theme) => ({
-          fontWeight: 700,
-          letterSpacing: '-0.02em',
+          fontWeight: 800,
           mb: 2,
-          backgroundImage: `linear-gradient(92deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-          backgroundClip: 'text',
-          WebkitBackgroundClip: 'text',
-          color: 'transparent',
-          WebkitTextFillColor: 'transparent',
+          // Syne runs wide: the variant size wraps the name at phone widths,
+          // so scale with the viewport below the sm breakpoint.
+          fontSize: { xs: 'clamp(1.9rem, 9vw, 2.4rem)', sm: theme.typography.h2.fontSize },
         })}
       >
         {name}
@@ -119,15 +96,15 @@ const Hero = () => {
         flexWrap="wrap"
         useFlexGap
       >
-        {links.map(({ label, href, icon }) => (
+        {links.map(({ label, href, icon, primary }) => (
           <Button
             key={label}
             href={href}
             target={href.startsWith('mailto:') ? undefined : '_blank'}
             rel={href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-            variant="outlined"
+            variant={primary ? 'contained' : 'outlined'}
+            disableElevation
             startIcon={icon}
-            sx={{ fontWeight: 600 }}
           >
             {label}
           </Button>

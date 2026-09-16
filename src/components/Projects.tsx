@@ -156,12 +156,19 @@ const Projects = () => {
           {(project.links ?? []).map(({ url, label, icon }) => (
             <Button
               key={url}
-              variant="outlined"
               size="small"
               href={url}
               target="_blank"
               rel="noopener noreferrer"
               startIcon={LINK_ICONS[icon] ?? <LaunchIcon />}
+              sx={{
+                px: 1.75,
+                color: 'primary.main',
+                bgcolor: alpha(theme.palette.primary.main, theme.palette.mode === 'dark' ? 0.12 : 0.08),
+                '&:hover': {
+                  bgcolor: alpha(theme.palette.primary.main, theme.palette.mode === 'dark' ? 0.2 : 0.15),
+                },
+              }}
             >
               {label}
             </Button>
