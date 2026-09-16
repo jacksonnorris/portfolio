@@ -115,8 +115,8 @@ const Header = () => {
             sx={{
               flexGrow: 1,
               // Same face and cut as the hero name, just smaller.
-              fontFamily: '"Syne", sans-serif',
-              fontWeight: 800,
+              fontFamily: '"Shrikhand", Georgia, serif',
+              fontWeight: 400,
               fontSize: '1.5rem',
               textDecoration: 'none',
               color: 'text.primary',

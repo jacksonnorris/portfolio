@@ -20,7 +20,9 @@ const fontSizes: Record<TextSize, FontSizeSet> = {
 // The two-font system: an expressive modern display face for the big moments
 // (wordmark, section headings) and a clean grotesque for everything else.
 const BODY_FONT = '"Instrument Sans", "Helvetica", "Arial", sans-serif';
-const DISPLAY_FONT = '"Syne", "Instrument Sans", sans-serif';
+// Shrikhand ships one weight only (400): display variants must stay at 400
+// or the browser synthesizes a fake bold and muddies the letterforms.
+const DISPLAY_FONT = '"Shrikhand", Georgia, serif';
 
 // This function creates the theme on the fly
 export const createCustomTheme = (mode: ThemeMode, textSize: TextSize): Theme => {
@@ -59,10 +61,10 @@ export const createCustomTheme = (mode: ThemeMode, textSize: TextSize): Theme =>
   // merge in the dynamic typography and common component styles
   return createTheme(theme, {
     typography: {
-      h1: { fontFamily: DISPLAY_FONT, fontWeight: 800, fontSize: selectedSizes.h1 },
-      h2: { fontFamily: DISPLAY_FONT, fontWeight: 800, fontSize: selectedSizes.h2 },
-      h3: { fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: selectedSizes.h3 },
-      h4: { fontFamily: DISPLAY_FONT, fontWeight: 700 },
+      h1: { fontFamily: DISPLAY_FONT, fontWeight: 400, fontSize: selectedSizes.h1 },
+      h2: { fontFamily: DISPLAY_FONT, fontWeight: 400, fontSize: selectedSizes.h2 },
+      h3: { fontFamily: DISPLAY_FONT, fontWeight: 400, fontSize: selectedSizes.h3 },
+      h4: { fontFamily: DISPLAY_FONT, fontWeight: 400 },
       h5: { fontWeight: 600 },
       h6: { fontWeight: 500 },
       button: { fontWeight: 600 },

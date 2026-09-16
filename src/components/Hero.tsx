@@ -52,10 +52,10 @@ const Hero = () => {
         variants={itemVariants}
         variant="h2"
         sx={(theme) => ({
-          fontWeight: 800,
+          fontWeight: 400,
           mb: 2,
-          // Syne runs wide: the variant size wraps the name at phone widths,
-          // so scale with the viewport below the sm breakpoint.
+          // The display face runs wide: the variant size wraps the name at
+          // phone widths, so scale with the viewport below the sm breakpoint.
           fontSize: { xs: 'clamp(1.9rem, 9vw, 2.4rem)', sm: theme.typography.h2.fontSize },
         })}
       >
