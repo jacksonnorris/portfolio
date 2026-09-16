@@ -1,5 +1,6 @@
 import React, { useState, MouseEvent } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
+import { alpha } from '@mui/material/styles';
 
 import {
   AppBar,
@@ -16,6 +17,11 @@ import {
 
 import MenuIcon from '@mui/icons-material/Menu';
 
+const NAV_ITEMS = [
+  { label: 'Home', to: '/' },
+  { label: 'Map', to: '/map' },
+];
+
 const Header = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -23,6 +29,7 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const isMenuOpen = Boolean(anchorEl);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const handleMenuOpen = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -39,22 +46,22 @@ const Header = () => {
 
   const menuDesktop = (
     <Box>
-      <Button
-        color="inherit"
-        component={RouterLink}
-        to="/"
-        sx={{ fontSize: '1.25rem', fontWeight: 'bold', px: 2 }}
-      >
-        Home
-      </Button>
-      <Button
-        color="inherit"
-        component={RouterLink}
-        to="/map"
-        sx={{ fontSize: '1.25rem', fontWeight: 'bold', px: 2 }}
-      >
-        Map
-      </Button>
+      {NAV_ITEMS.map(({ label, to }) => (
+        <Button
+          key={to}
+          color="inherit"
+          component={RouterLink}
+          to={to}
+          sx={{
+            fontSize: '1.25rem',
+            fontWeight: 'bold',
+            px: 2,
+            color: pathname === to ? 'primary.main' : 'inherit',
+          }}
+        >
+          {label}
+        </Button>
+      ))}
     </Box>
   );
 
@@ -78,14 +85,27 @@ const Header = () => {
         onClose={handleMenuClose}
         sx={{ '& .MuiMenuItem-root': { fontSize: '1.1rem' } }}
       >
-        <MenuItem onClick={() => handleMenuItemClick('/')}>Home</MenuItem>
-        <MenuItem onClick={() => handleMenuItemClick('/map')}>Map</MenuItem>
+        {NAV_ITEMS.map(({ label, to }) => (
+          <MenuItem key={to} selected={pathname === to} onClick={() => handleMenuItemClick(to)}>
+            {label}
+          </MenuItem>
+        ))}
       </Menu>
     </Box>
   );
 
   return (
-    <AppBar position="static" color="transparent" elevation={0} sx={{ borderBottom: 1, borderColor: 'divider' }}>
+    <AppBar
+      position="sticky"
+      color="transparent"
+      elevation={0}
+      sx={(t) => ({
+        borderBottom: 1,
+        borderColor: 'divider',
+        bgcolor: alpha(t.palette.background.default, 0.8),
+        backdropFilter: 'blur(12px)',
+      })}
+    >
       <Toolbar sx={{ height: '80px' }}>
         <Typography
           variant="h5"

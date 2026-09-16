@@ -2,6 +2,7 @@ import React, { useState, useEffect, SyntheticEvent } from 'react';
 import { useForm, ValidationError } from '@formspree/react';
 
 import { Box, Typography, TextField, Button, Snackbar, Alert } from '@mui/material';
+import AccentRule from './AccentRule';
 
 function ContactForm() {
   const [state, handleSubmit] = useForm("xovwwzaa");
@@ -22,9 +23,10 @@ function ContactForm() {
 
   return (
     <Box component="section" id="contact" sx={{ py: 8 }}>
-      <Typography variant="h2" component="h2" align="center" gutterBottom>
+      <Typography variant="h2" component="h2" align="center" sx={{ mb: 1.5 }}>
         Contact Me
       </Typography>
+      <AccentRule mb={6} />
       <Box
         component="form"
         onSubmit={handleSubmit}

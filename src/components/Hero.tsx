@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import { alpha } from '@mui/material/styles';
 import { portfolioData } from '../data/portfolio';
 
 import { Box, Typography, Button, Stack } from '@mui/material';
@@ -44,13 +45,42 @@ const Hero = () => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      sx={{ py: { xs: 8, md: 12 }, textAlign: 'center' }}
+      sx={(theme) => ({
+        py: { xs: 8, md: 12 },
+        textAlign: 'center',
+        position: 'relative',
+        zIndex: 0,
+        // Soft color glow behind the intro, in the palette's own colors.
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          inset: 0,
+          zIndex: -1,
+          pointerEvents: 'none',
+          background: `radial-gradient(600px circle at 15% 20%, ${alpha(
+            theme.palette.primary.main,
+            theme.palette.mode === 'dark' ? 0.14 : 0.1
+          )}, transparent 65%), radial-gradient(560px circle at 85% 25%, ${alpha(
+            theme.palette.secondary.main,
+            theme.palette.mode === 'dark' ? 0.11 : 0.08
+          )}, transparent 65%)`,
+        },
+      })}
     >
       <Typography
         component={motion.h1}
         variants={itemVariants}
         variant="h2"
-        sx={{ fontWeight: 'bold', mb: 2 }}
+        sx={(theme) => ({
+          fontWeight: 700,
+          letterSpacing: '-0.02em',
+          mb: 2,
+          backgroundImage: `linear-gradient(92deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+          backgroundClip: 'text',
+          WebkitBackgroundClip: 'text',
+          color: 'transparent',
+          WebkitTextFillColor: 'transparent',
+        })}
       >
         {name}
       </Typography>

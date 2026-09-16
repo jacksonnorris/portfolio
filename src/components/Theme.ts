@@ -17,12 +17,18 @@ const fontSizes: Record<TextSize, FontSizeSet> = {
   large: { h1: '4.5rem', h2: '3.5rem', h3: '2.5rem', body1: '1.125rem', body2: '1rem' },
 };
 
+const BODY_FONT = '"Inter", "Roboto", "Helvetica", "Arial", sans-serif';
+const HEADING_FONT = '"Space Grotesk", "Inter", "Roboto", sans-serif';
+
 // This function creates the theme on the fly
 export const createCustomTheme = (mode: ThemeMode, textSize: TextSize): Theme => {
   const selectedSizes = fontSizes[textSize] ?? fontSizes.medium;
 
-  // Base theme settings for light mode
+  // Base theme settings for light mode. The font family must be set here:
+  // createTheme computes every typography variant's styles in this first
+  // call, so a fontFamily merged in later never reaches body1, button, etc.
   let theme = createTheme({
+    typography: { fontFamily: BODY_FONT },
     palette: {
       mode: 'light',
       primary: { main: '#007BFF' },
@@ -51,15 +57,28 @@ export const createCustomTheme = (mode: ThemeMode, textSize: TextSize): Theme =>
   // merge in the dynamic typography and common component styles
   return createTheme(theme, {
     typography: {
-      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-      h1: { fontWeight: 700, fontSize: selectedSizes.h1 },
-      h2: { fontWeight: 700, fontSize: selectedSizes.h2 },
-      h3: { fontWeight: 600, fontSize: selectedSizes.h3 },
+      fontFamily: BODY_FONT,
+      h1: { fontWeight: 700, fontSize: selectedSizes.h1, fontFamily: HEADING_FONT, letterSpacing: '-0.02em' },
+      h2: { fontWeight: 700, fontSize: selectedSizes.h2, fontFamily: HEADING_FONT, letterSpacing: '-0.02em' },
+      h3: { fontWeight: 600, fontSize: selectedSizes.h3, fontFamily: HEADING_FONT, letterSpacing: '-0.01em' },
+      h4: { fontWeight: 600, fontFamily: HEADING_FONT, letterSpacing: '-0.01em' },
+      h5: { fontWeight: 600, fontFamily: HEADING_FONT },
+      h6: { fontWeight: 500, fontFamily: HEADING_FONT },
+      button: { fontWeight: 600 },
       body1: { fontSize: selectedSizes.body1 },
       body2: { fontSize: selectedSizes.body2 },
     },
     components: {
-      MuiCard: { styleOverrides: { root: { borderRadius: 12, boxShadow: 'none', border: 'none' } } },
+      MuiCard: {
+        styleOverrides: {
+          root: {
+            borderRadius: 12,
+            boxShadow: 'none',
+            border: `1px solid ${theme.palette.divider}`,
+            backgroundImage: 'none',
+          },
+        },
+      },
       MuiButton: {
         styleOverrides: {
           root: { borderRadius: 8, textTransform: 'none' },

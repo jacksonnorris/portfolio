@@ -4,6 +4,8 @@ import type { Project, ProjectCategory, LinkIcon } from '../types/portfolio';
 import styles from './Projects.module.scss';
 
 import { Box, Typography, Grid, Card, CardContent, CardActions, Button, Chip, useTheme } from '@mui/material';
+import { alpha } from '@mui/material/styles';
+import AccentRule from './AccentRule';
 import LaunchIcon from '@mui/icons-material/Launch';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import AppleIcon from '@mui/icons-material/Apple';
@@ -90,7 +92,19 @@ const Projects = () => {
         whileHover={{ y: -8 }}
         transition={{ duration: 0.3 }}
         className={styles.projectCard}
-        sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+        sx={{
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          transition: 'border-color 0.25s ease, box-shadow 0.25s ease',
+          '&:hover': {
+            borderColor: alpha(theme.palette.primary.main, 0.5),
+            boxShadow: `0 8px 30px 0 ${alpha(
+              theme.palette.primary.main,
+              theme.palette.mode === 'dark' ? 0.16 : 0.12
+            )}`,
+          },
+        }}
       >
         <CardContent sx={{ flexGrow: 1 }}>
           <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 1 }}>
@@ -159,9 +173,10 @@ const Projects = () => {
 
   return (
     <Box component="section" id="projects" sx={{ py: 8 }}>
-      <Typography variant="h2" component="h2" align="center" sx={{ mb: 4 }}>
+      <Typography variant="h2" component="h2" align="center" sx={{ mb: 1.5 }}>
         Featured Projects
       </Typography>
+      <AccentRule mb={5} />
 
       <Box
         component={motion.div}

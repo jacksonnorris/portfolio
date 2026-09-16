@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useContext } from 'react';
 import { Box, Typography } from '@mui/material';
+import AccentRule from './AccentRule';
 import mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
 import type { Feature, FeatureCollection, GeoJsonProperties, LineString, Point, Position } from 'geojson';
@@ -131,7 +132,7 @@ const Map = () => {
       .custom-mapbox-popup .mapboxgl-popup-content {
         background-color: ${currentTheme.palette.background.paper};
         color: ${currentTheme.palette.text.primary};
-        font-family: "Roboto", sans-serif;
+        font-family: "Inter", "Roboto", sans-serif;
         border-radius: 8px;
         padding: 12px 16px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -178,7 +179,8 @@ const Map = () => {
 
   return (
     <Box sx={{ py: 4 }}>
-      <Typography variant="h2" align="center" gutterBottom>My Journey</Typography>
+      <Typography variant="h2" align="center" sx={{ mb: 1.5 }}>My Journey</Typography>
+      <AccentRule mb={4} />
       <Box ref={mapContainer} sx={{ height: '70vh', width: '100%', borderRadius: 2 }} />
     </Box>
   );
