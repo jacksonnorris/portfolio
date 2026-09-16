@@ -1,5 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, MouseEvent } from 'react';
 import { ThemeContext } from '../contexts/ThemeContext';
+import type { TextSize } from '../types/theme';
 
 import { Box, Paper, IconButton, Tooltip, ToggleButtonGroup, ToggleButton, Fab, Collapse, Typography, Divider } from '@mui/material';
 
@@ -12,7 +13,7 @@ const ControlPanel = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { mode, toggleTheme, textSize, setTextSize } = useContext(ThemeContext);
 
-  const handleTextSizeChange = (event, newSize) => {
+  const handleTextSizeChange = (_event: MouseEvent<HTMLElement>, newSize: TextSize | null) => {
     if (newSize !== null) {
       setTextSize(newSize);
     }
@@ -45,9 +46,9 @@ const ControlPanel = () => {
               </IconButton>
             </Tooltip>
           </Box>
-          
-          <Divider /> 
-          
+
+          <Divider />
+
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             <Typography variant="overline" sx={{ minWidth: '50px', color: 'text.secondary' }}>
               Text

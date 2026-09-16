@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, MouseEvent } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
-import { 
-  AppBar, 
-  Toolbar, 
-  Typography, 
-  Box, 
-  Button, 
-  IconButton, 
-  Menu, 
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Box,
+  Button,
+  IconButton,
+  Menu,
   MenuItem,
   useTheme,
-  useMediaQuery 
+  useMediaQuery
 } from '@mui/material';
 
 import MenuIcon from '@mui/icons-material/Menu';
@@ -20,11 +20,11 @@ const Header = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const isMenuOpen = Boolean(anchorEl);
   const navigate = useNavigate();
 
-  const handleMenuOpen = (event) => {
+  const handleMenuOpen = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -32,24 +32,24 @@ const Header = () => {
     setAnchorEl(null);
   };
 
-  const handleMenuItemClick = (path) => {
+  const handleMenuItemClick = (path: string) => {
     navigate(path);
     handleMenuClose();
   };
-  
+
   const menuDesktop = (
     <Box>
-      <Button 
-        color="inherit" 
-        component={RouterLink} 
+      <Button
+        color="inherit"
+        component={RouterLink}
         to="/"
         sx={{ fontSize: '1.25rem', fontWeight: 'bold', px: 2 }}
       >
         Home
       </Button>
-      <Button 
-        color="inherit" 
-        component={RouterLink} 
+      <Button
+        color="inherit"
+        component={RouterLink}
         to="/map"
         sx={{ fontSize: '1.25rem', fontWeight: 'bold', px: 2 }}
       >
@@ -67,7 +67,7 @@ const Header = () => {
         aria-label="open navigation menu"
         onClick={handleMenuOpen}
       >
-        <MenuIcon sx={{ fontSize: '2rem' }} /> 
+        <MenuIcon sx={{ fontSize: '2rem' }} />
       </IconButton>
       <Menu
         anchorEl={anchorEl}
@@ -86,13 +86,13 @@ const Header = () => {
 
   return (
     <AppBar position="static" color="transparent" elevation={0} sx={{ borderBottom: 1, borderColor: 'divider' }}>
-      <Toolbar sx={{ height: '80px' }}> 
-        <Typography 
-          variant="h5" 
-          component={RouterLink} 
-          to="/" 
-          sx={{ 
-            flexGrow: 1, 
+      <Toolbar sx={{ height: '80px' }}>
+        <Typography
+          variant="h5"
+          component={RouterLink}
+          to="/"
+          sx={{
+            flexGrow: 1,
             fontWeight: 'bold',
             textDecoration: 'none',
             color: 'text.primary',

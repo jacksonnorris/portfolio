@@ -1,5 +1,5 @@
-import React from 'react';
-import portfolioData from '../data/portfolioData.json';
+import React, { ReactElement } from 'react';
+import { portfolioData } from '../data/portfolio';
 
 import { Box, Typography, Button, Stack } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
@@ -21,11 +21,17 @@ const itemVariants = {
   visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
 };
 
+interface ContactLink {
+  label: string;
+  href: string;
+  icon: ReactElement;
+}
+
 const Hero = () => {
   const { name, title, about, contact } = portfolioData;
   const paragraphs = Array.isArray(about) ? about : [about];
 
-  const links = [
+  const links: ContactLink[] = [
     { label: 'Email', href: `mailto:${contact.email}`, icon: <EmailIcon /> },
     { label: 'LinkedIn', href: contact.linkedin, icon: <LinkedInIcon /> },
     { label: 'GitHub', href: contact.github, icon: <GitHubIcon /> },

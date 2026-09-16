@@ -11,7 +11,7 @@ import ControlPanel from './components/ControlPanel';
 function App() {
   return (
     <>
-      <CssBaseline /> 
+      <CssBaseline />
       <Box sx={{ bgcolor: 'background.default', color: 'text.primary', minHeight: '100vh' }}>
         <Container maxWidth="lg">
           <Header />

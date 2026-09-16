@@ -1,7 +1,16 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, Theme } from '@mui/material/styles';
+import type { ThemeMode, TextSize } from '../types/theme';
+
+interface FontSizeSet {
+  h1: string;
+  h2: string;
+  h3: string;
+  body1: string;
+  body2: string;
+}
 
 // Define the base font sizes for each setting
-const fontSizes = {
+const fontSizes: Record<TextSize, FontSizeSet> = {
   // We are adding a `body2` property to each size definition
   small: { h1: '3.5rem', h2: '2.5rem', h3: '1.75rem', body1: '0.875rem', body2: '0.75rem' },
   medium: { h1: '4rem', h2: '3rem', h3: '2.125rem', body1: '1rem', body2: '0.875rem' },
@@ -9,8 +18,8 @@ const fontSizes = {
 };
 
 // This function creates the theme on the fly
-export const createCustomTheme = (mode, textSize) => {
-  const selectedSizes = fontSizes[textSize] || fontSizes.medium;
+export const createCustomTheme = (mode: ThemeMode, textSize: TextSize): Theme => {
+  const selectedSizes = fontSizes[textSize] ?? fontSizes.medium;
 
   // Base theme settings for light mode
   let theme = createTheme({
@@ -23,7 +32,7 @@ export const createCustomTheme = (mode, textSize) => {
       action: { hover: 'rgba(0, 0, 0, 0.04)' }
     },
   });
-  
+
   // If dark mode is selected, merge in the dark mode palette
   if (mode === 'dark') {
     theme = createTheme(theme, {
@@ -54,8 +63,8 @@ export const createCustomTheme = (mode, textSize) => {
       MuiButton: {
         styleOverrides: {
           root: { borderRadius: 8, textTransform: 'none' },
-          outlinedSecondary: ({ theme: t }) => ({
-            '--mui-palette-secondary-main-rgb': t.palette.secondary.main.match(/\d+/g).join(','),
+          outlinedSecondary: ({ theme: t }: { theme: Theme }) => ({
+            '--mui-palette-secondary-main-rgb': t.palette.secondary.main.match(/\d+/g)?.join(',') ?? '',
           }),
         },
       },

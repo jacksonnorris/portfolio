@@ -19,7 +19,7 @@ The dev server serves at `http://localhost:3000/portfolio`, not at the root, bec
 
 ## The map needs a token
 
-`src/components/Map.js` reads `process.env.REACT_APP_MAPBOX_TOKEN`. Without it the
+`src/components/Map.tsx` reads `process.env.REACT_APP_MAPBOX_TOKEN`. Without it the
 map renders blank, so create a `.env` in the project root:
 
 ```bash
@@ -52,10 +52,15 @@ chips above the grid filter across both sections.
 ```
 src/
   components/    Hero, Projects, Map, ContactForm, Header, ControlPanel, Theme
-  contexts/      ThemeContext (light/dark)
-  data/          portfolioData.json, mapData.json
-  theme.js       MUI theme definition
+  contexts/      ThemeContext (light/dark mode and text size)
+  data/          portfolioData.json, mapData.json, portfolio.ts (typed access)
+  types/         the shapes of the JSON content and the theme settings
+  theme.ts       standalone light/dark palettes used by the map popups
 ```
+
+Everything is TypeScript (`npm run typecheck`). The JSON files stay plain JSON
+so they're easy to edit; `src/data/portfolio.ts` applies the types, and the
+tests assert the JSON actually matches them.
 
 Routes are `/` (hero, projects, contact) and `/map`. The contact form posts to
 Formspree.

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, SyntheticEvent } from 'react';
 import { useForm, ValidationError } from '@formspree/react';
 
 import { Box, Typography, TextField, Button, Snackbar, Alert } from '@mui/material';
@@ -13,7 +13,7 @@ function ContactForm() {
     }
   }, [state.succeeded]);
 
-  const handleCloseSnackbar = (event, reason) => {
+  const handleCloseSnackbar = (_event?: SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }
@@ -25,26 +25,26 @@ function ContactForm() {
       <Typography variant="h2" component="h2" align="center" gutterBottom>
         Contact Me
       </Typography>
-      <Box 
-        component="form" 
-        onSubmit={handleSubmit} 
-        sx={{ 
-          maxWidth: '600px', 
-          mx: 'auto', 
-          display: 'flex', 
-          flexDirection: 'column', 
-          alignItems: 'center' 
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        sx={{
+          maxWidth: '600px',
+          mx: 'auto',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
         }}
       >
-        
+
         <Box sx={{ width: '100%', mb: 3 }}>
-          <TextField 
-            fullWidth 
-            required 
-            id="email" 
-            type="email" 
-            name="email" 
-            label="Your Email" 
+          <TextField
+            fullWidth
+            required
+            id="email"
+            type="email"
+            name="email"
+            label="Your Email"
             variant="outlined"
             sx={{
               '& .MuiOutlinedInput-root': {
@@ -66,14 +66,14 @@ function ContactForm() {
           <ValidationError prefix="Email" field="email" errors={state.errors} />
         </Box>
         <Box sx={{ width: '100%', mb: 3 }}>
-          <TextField 
-            fullWidth 
-            required 
-            id="message" 
-            name="message" 
-            label="Message" 
-            multiline 
-            rows={4} 
+          <TextField
+            fullWidth
+            required
+            id="message"
+            name="message"
+            label="Message"
+            multiline
+            rows={4}
             variant="outlined"
             sx={{
               '& .MuiOutlinedInput-root': {
@@ -94,8 +94,8 @@ function ContactForm() {
           />
           <ValidationError prefix="Message" field="message" errors={state.errors} />
         </Box>
-        <Button 
-          type="submit" 
+        <Button
+          type="submit"
           variant="outlined"
           color="secondary"
           size="large"

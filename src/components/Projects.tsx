@@ -1,5 +1,6 @@
-import React, { useState, useMemo } from 'react';
-import portfolioData from '../data/portfolioData.json';
+import React, { useState, useMemo, ReactElement } from 'react';
+import { portfolioData } from '../data/portfolio';
+import type { Project, ProjectCategory, LinkIcon } from '../types/portfolio';
 import styles from './Projects.module.scss';
 
 import { Box, Typography, Grid, Card, CardContent, CardActions, Button, Chip, useTheme } from '@mui/material';
@@ -11,7 +12,13 @@ import LanguageIcon from '@mui/icons-material/Language';
 
 import { motion, AnimatePresence } from 'framer-motion';
 
-const SECTIONS = [
+interface Section {
+  key: ProjectCategory;
+  heading: string;
+  blurb: string;
+}
+
+const SECTIONS: Section[] = [
   {
     key: 'professional',
     heading: 'Current Work',
@@ -24,7 +31,7 @@ const SECTIONS = [
   },
 ];
 
-const LINK_ICONS = {
+const LINK_ICONS: Record<LinkIcon, ReactElement> = {
   apple: <AppleIcon />,
   android: <AndroidIcon />,
   web: <LanguageIcon />,
@@ -32,11 +39,11 @@ const LINK_ICONS = {
 };
 
 const Projects = () => {
-  const [selectedTag, setSelectedTag] = useState(null);
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const theme = useTheme();
 
   const allTags = useMemo(() => {
-    const tags = new Set();
+    const tags = new Set<string>();
     portfolioData.projects.forEach(p => p.tags.forEach(tag => tags.add(tag)));
     return ['All', ...Array.from(tags)];
   }, []);
@@ -50,7 +57,7 @@ const Projects = () => {
     );
   }, [selectedTag]);
 
-  const handleTagClick = (tag) => {
+  const handleTagClick = (tag: string) => {
     setSelectedTag(prevTag => (prevTag === tag ? null : tag));
   };
 
@@ -67,7 +74,7 @@ const Projects = () => {
     visible: { y: 0, opacity: 1 },
   };
 
-  const renderCard = (project) => (
+  const renderCard = (project: Project) => (
     <Grid
       key={project.id}
       size={{ xs: 12, md: 6 }}
@@ -132,7 +139,7 @@ const Projects = () => {
           </Box>
         </CardContent>
         <CardActions className={styles.projectLinks}>
-          {(project.links || []).map(({ url, label, icon }) => (
+          {(project.links ?? []).map(({ url, label, icon }) => (
             <Button
               key={url}
               variant="outlined"
@@ -140,7 +147,7 @@ const Projects = () => {
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              startIcon={LINK_ICONS[icon] || <LaunchIcon />}
+              startIcon={LINK_ICONS[icon] ?? <LaunchIcon />}
             >
               {label}
             </Button>

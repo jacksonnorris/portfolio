@@ -2,52 +2,58 @@ import React, { useRef, useEffect, useContext } from 'react';
 import { Box, Typography } from '@mui/material';
 import mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
-import mapData from '../data/mapData.json';
+import type { Feature, FeatureCollection, GeoJsonProperties, LineString, Point, Position } from 'geojson';
+import { mapData } from '../data/portfolio';
+import type { MapPoint } from '../types/portfolio';
 import { ThemeContext } from '../contexts/ThemeContext';
 import { lightTheme, darkTheme } from '../theme';
 
-mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN ?? '';
+
+type PointCollection = FeatureCollection<Point, MapPoint>;
+type LineCollection = FeatureCollection<LineString, GeoJsonProperties>;
 
 const Map = () => {
-  const mapContainer = useRef(null);
-  const map = useRef(null);
+  const mapContainer = useRef<HTMLDivElement | null>(null);
+  const map = useRef<mapboxgl.Map | null>(null);
   const isInitialLoad = useRef(true);
   const { mode } = useContext(ThemeContext);
 
   useEffect(() => {
-    const initializeMap = () => {
+    const initializeMap = (container: HTMLDivElement) => {
       if (map.current) return;
 
-      const allPointsGeoJSON = {
+      const allPointsGeoJSON: PointCollection = {
         type: 'FeatureCollection',
         features: mapData.points.map(point => ({
           type: 'Feature',
           properties: { ...point },
-          geometry: { 'type': 'Point', 'coordinates': point.coordinates },
+          geometry: { type: 'Point', coordinates: point.coordinates },
         })),
       };
 
-      const mapStyle = mode === 'dark' 
-        ? 'mapbox://styles/mapbox/dark-v11' 
+      const mapStyle = mode === 'dark'
+        ? 'mapbox://styles/mapbox/dark-v11'
         : 'mapbox://styles/mapbox/light-v11';
 
-      map.current = new mapboxgl.Map({
-        container: mapContainer.current,
+      const instance = new mapboxgl.Map({
+        container,
         style: mapStyle,
         projection: 'globe',
         center: [-80.8392, 35.2252],
         zoom: 4,
       });
+      map.current = instance;
 
-      map.current.on('style.load', () => {
-        map.current.setFog({});
+      instance.on('style.load', () => {
+        instance.setFog({});
 
         const buildSpoke = () => {
-          const center = map.current.getCenter();
+          const center = instance.getCenter();
           const centerPoint = turf.point([center.lng, center.lat]);
-          let nearestPoints = { type: 'FeatureCollection', features: [] };
-          let nearestLines = { type: 'FeatureCollection', features: [] };
-          let availablePoints = JSON.parse(JSON.stringify(allPointsGeoJSON));
+          const nearestPoints: PointCollection = { type: 'FeatureCollection', features: [] };
+          const nearestLines: LineCollection = { type: 'FeatureCollection', features: [] };
+          const availablePoints: PointCollection = JSON.parse(JSON.stringify(allPointsGeoJSON));
 
           for (let i = 0; i < 10 && availablePoints.features.length > 0; i++) {
             const nearest = turf.nearestPoint(centerPoint, availablePoints);
@@ -55,32 +61,35 @@ const Map = () => {
             const endLng = nearest.geometry.coordinates[0];
             if (startLng >= 90 && endLng <= -90) nearest.geometry.coordinates[0] += 360;
             else if (startLng <= -90 && endLng >= 90) nearest.geometry.coordinates[0] -= 360;
-            
+
             const line = turf.lineString([centerPoint.geometry.coordinates, nearest.geometry.coordinates]);
-            nearestPoints.features.push(nearest);
+            // nearestPoint copies the source feature's properties and adds
+            // featureIndex/distanceToPoint, so MapPoint fields are present at
+            // runtime even though turf's return type doesn't say so.
+            nearestPoints.features.push(nearest as unknown as Feature<Point, MapPoint>);
             nearestLines.features.push(line);
-            
+
             const index = availablePoints.features.findIndex(p => p.properties.id === nearest.properties.id);
             if (index !== -1) availablePoints.features.splice(index, 1);
           }
-          
+
           if (isInitialLoad.current) {
             addLayers(nearestPoints, nearestLines);
           } else {
-            map.current.getSource('nearest-points').setData(nearestPoints);
-            map.current.getSource('spoke-lines').setData(nearestLines);
+            (instance.getSource('nearest-points') as mapboxgl.GeoJSONSource | undefined)?.setData(nearestPoints);
+            (instance.getSource('spoke-lines') as mapboxgl.GeoJSONSource | undefined)?.setData(nearestLines);
           }
         };
 
-        const addLayers = (nearest, lines) => {
+        const addLayers = (nearest: PointCollection, lines: LineCollection) => {
           isInitialLoad.current = false;
-          map.current.addSource('all-points', { type: 'geojson', data: allPointsGeoJSON });
-          map.current.addSource('nearest-points', { type: 'geojson', data: nearest });
-          map.current.addSource('spoke-lines', { type: 'geojson', data: lines });
+          instance.addSource('all-points', { type: 'geojson', data: allPointsGeoJSON });
+          instance.addSource('nearest-points', { type: 'geojson', data: nearest });
+          instance.addSource('spoke-lines', { type: 'geojson', data: lines });
 
-          map.current.addLayer({ 'id': 'spoke-lines-layer', 'type': 'line', 'source': 'spoke-lines', 'paint': { 'line-color': '#00bfa0', 'line-width': 1.5, 'line-opacity': 0.8 } });
-          map.current.addLayer({ 'id': 'all-points-layer', 'type': 'circle', 'source': 'all-points', 'paint': { 'circle-radius': 3, 'circle-color': mode === 'dark' ? '#ffffff' : '#424242', 'circle-opacity': 0.5 } });
-          map.current.addLayer({
+          instance.addLayer({ 'id': 'spoke-lines-layer', 'type': 'line', 'source': 'spoke-lines', 'paint': { 'line-color': '#00bfa0', 'line-width': 1.5, 'line-opacity': 0.8 } });
+          instance.addLayer({ 'id': 'all-points-layer', 'type': 'circle', 'source': 'all-points', 'paint': { 'circle-radius': 3, 'circle-color': mode === 'dark' ? '#ffffff' : '#424242', 'circle-opacity': 0.5 } });
+          instance.addLayer({
             'id': 'nearest-points-layer', 'type': 'circle', 'source': 'nearest-points',
             'paint': {
               'circle-radius': 6,
@@ -88,29 +97,32 @@ const Map = () => {
               'circle-stroke-width': 2, 'circle-stroke-color': mode === 'dark' ? '#ffffff' : '#212121'
             }
           });
-          
-          map.current.on('mouseenter', 'nearest-points-layer', () => { map.current.getCanvas().style.cursor = 'pointer'; });
-          map.current.on('mouseleave', 'nearest-points-layer', () => { map.current.getCanvas().style.cursor = ''; });
-          
-          map.current.on('click', 'nearest-points-layer', (e) => {
-            const coordinates = e.features[0].geometry.coordinates.slice();
-            const { name, description } = e.features[0].properties;
+
+          instance.on('mouseenter', 'nearest-points-layer', () => { instance.getCanvas().style.cursor = 'pointer'; });
+          instance.on('mouseleave', 'nearest-points-layer', () => { instance.getCanvas().style.cursor = ''; });
+
+          instance.on('click', 'nearest-points-layer', (e) => {
+            const feature = e.features?.[0];
+            if (!feature || feature.geometry.type !== 'Point') return;
+
+            const coordinates = feature.geometry.coordinates.slice() as Position;
+            const { name, description } = feature.properties as unknown as MapPoint;
 
             while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
               coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
             }
-            
+
             const popupHTML = `<h3>${name}</h3><p>${description}</p>`;
-            
+
             new mapboxgl.Popup({ className: 'custom-mapbox-popup' })
-              .setLngLat(coordinates)
+              .setLngLat([coordinates[0], coordinates[1]])
               .setHTML(popupHTML)
-              .addTo(map.current);
+              .addTo(instance);
           });
         };
 
         buildSpoke();
-        map.current.on('move', buildSpoke);
+        instance.on('move', buildSpoke);
       });
     };
 
@@ -144,7 +156,7 @@ const Map = () => {
     if (!container) return;
     const observer = new ResizeObserver(() => {
       if (!map.current && container.clientHeight > 0) {
-        initializeMap();
+        initializeMap(container);
         observer.disconnect();
       }
     });

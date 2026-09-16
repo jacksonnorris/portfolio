@@ -7,7 +7,10 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 const basename = process.env.PUBLIC_URL;
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const container = document.getElementById('root');
+if (!container) throw new Error('Root element #root not found in index.html');
+
+const root = ReactDOM.createRoot(container);
 root.render(
   <React.StrictMode>
     <BrowserRouter basename={basename}>
